@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name = "Goods", schema = "dbo", catalog = "shop")
@@ -11,7 +10,6 @@ public class GoodsEntity {
     private String model;
     private double price;
     private String description;
-    private Collection<OrderToGoodsEntity> orderToGoodsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -90,14 +88,5 @@ public class GoodsEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "goodsByGoodsId")
-    public Collection<OrderToGoodsEntity> getOrderToGoodsById() {
-        return orderToGoodsById;
-    }
-
-    public void setOrderToGoodsById(Collection<OrderToGoodsEntity> orderToGoodsById) {
-        this.orderToGoodsById = orderToGoodsById;
     }
 }

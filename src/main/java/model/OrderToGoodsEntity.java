@@ -6,8 +6,6 @@ import javax.persistence.*;
 @Table(name = "OrderToGoods", schema = "dbo", catalog = "shop")
 public class OrderToGoodsEntity {
     private long id;
-    private long orderId;
-    private long goodsId;
     private OrdersEntity ordersByOrderId;
     private GoodsEntity goodsByGoodsId;
 
@@ -21,26 +19,6 @@ public class OrderToGoodsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "orderId", nullable = false)
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    @Basic
-    @Column(name = "goodsId", nullable = false)
-    public long getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(long goodsId) {
-        this.goodsId = goodsId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,18 +27,13 @@ public class OrderToGoodsEntity {
         OrderToGoodsEntity that = (OrderToGoodsEntity) o;
 
         if (id != that.id) return false;
-        if (orderId != that.orderId) return false;
-        if (goodsId != that.goodsId) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (orderId ^ (orderId >>> 32));
-        result = 31 * result + (int) (goodsId ^ (goodsId >>> 32));
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @ManyToOne
