@@ -5,7 +5,8 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Orders", schema = "dbo", catalog = "shop")
-public class OrdersEntity {
+@NamedQuery(name = "Orders.findAll", query = "select r from OrdersEntity r")
+public class OrdersEntity implements EntityInterface  {
     private long id;
     private Date date;
     private boolean isPaid;
@@ -71,5 +72,15 @@ public class OrdersEntity {
 
     public void setClientsByClientId(ClientsEntity clientsByClientId) {
         this.clientsByClientId = clientsByClientId;
+    }
+
+    @Override
+    public String toHtmlTableRow(){
+        String isPaidStr = null;
+        if(isPaid)
+            isPaidStr = "paid";
+        else
+            isPaidStr = "not paid";
+        return "<tr><td>" + this.id + "</td><td>" + this.date + "</td><td>" + isPaidStr + "</td><td>" + this.clientsByClientId.getId() + "</td></tr>";
     }
 }

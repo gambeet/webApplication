@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "OrderToGoods", schema = "dbo", catalog = "shop")
-public class OrderToGoodsEntity {
+@NamedQuery(name = "OrderToGoods.findAll", query = "select r from OrderToGoodsEntity r")
+public class OrderToGoodsEntity implements EntityInterface  {
     private long id;
     private OrdersEntity ordersByOrderId;
     private GoodsEntity goodsByGoodsId;
@@ -54,5 +55,10 @@ public class OrderToGoodsEntity {
 
     public void setGoodsByGoodsId(GoodsEntity goodsByGoodsId) {
         this.goodsByGoodsId = goodsByGoodsId;
+    }
+
+    @Override
+    public String toHtmlTableRow(){
+        return "<tr><td>" + this.id + "</td><td>" + this.ordersByOrderId.getId() + "</td><td>" + this.goodsByGoodsId.getId() + "</td></tr>";
     }
 }
