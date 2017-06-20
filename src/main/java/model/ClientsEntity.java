@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Clients", schema = "dbo", catalog = "shop")
-public class ClientsEntity {
+@NamedQuery(name = "Clients.findAll", query = "select r from ClientsEntity r")
+public class ClientsEntity implements EntityInterface {
     private long id;
     private String fio;
     private String address;
@@ -72,5 +73,10 @@ public class ClientsEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toHtmlTableRow(){
+        return "<tr><td>" + this.id + "</td><td>" + this.fio + "</td><td>" + this.address + "</td><td>" + this.phone + "</td></tr>";
     }
 }

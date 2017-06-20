@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Goods", schema = "dbo", catalog = "shop")
-public class GoodsEntity {
+@NamedQuery(name = "Goods.findAll", query = "select r from GoodsEntity r")
+public class GoodsEntity implements EntityInterface {
     private long id;
     private String manufacturer;
     private String model;
@@ -88,5 +89,10 @@ public class GoodsEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toHtmlTableRow() {
+        return "<tr><td>" + this.id + "</td><td>" + this.manufacturer + "</td><td>" + this.model + "</td><td>" + this.price + "</td><td>" + this.description + "</td></tr>";
     }
 }
