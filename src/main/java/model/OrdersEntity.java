@@ -14,6 +14,7 @@ public class OrdersEntity implements EntityInterface  {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -81,6 +82,7 @@ public class OrdersEntity implements EntityInterface  {
             isPaidStr = "paid";
         else
             isPaidStr = "not paid";
-        return "<tr><td>" + this.id + "</td><td>" + this.date + "</td><td>" + isPaidStr + "</td><td>" + this.clientsByClientId.getId() + "</td></tr>";
+        return "<tr><td>" + this.id + "</td><td>" + this.date + "</td><td>" + isPaidStr + "</td><td>" + this.clientsByClientId.getFio() + "</td><td>"
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
     }
 }

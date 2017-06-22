@@ -14,6 +14,7 @@ public class GoodsEntity implements EntityInterface {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -93,6 +94,7 @@ public class GoodsEntity implements EntityInterface {
 
     @Override
     public String toHtmlTableRow() {
-        return "<tr><td>" + this.id + "</td><td>" + this.manufacturer + "</td><td>" + this.model + "</td><td>" + this.price + "</td><td>" + this.description + "</td></tr>";
+        return "<tr><td>" + this.id + "</td><td>" + this.manufacturer + "</td><td>" + this.model + "</td><td>" + this.price + "</td><td>" + this.description + "</td><td>"
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
     }
 }

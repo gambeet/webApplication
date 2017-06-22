@@ -6,12 +6,14 @@
     <session-factory>
         <property name="connection.url">jdbc:sqlserver://25.44.120.22:1433;server=YEVHENII-PC;database=shop</property>
         <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="connection.username">testName</property>
-        <property name="connection.password">vhu911ewr</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.connection.username">testName</property>
+        <property name="hibernate.connection.password">vhu911ewr</property>
+        <property name="connection.autocommit">true</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
+
         <mapping class="model.ClientsEntity"/>
         <mapping class="model.GoodsEntity"/>
         <mapping class="model.OrderToGoodsEntity"/>

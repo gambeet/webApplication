@@ -9,9 +9,11 @@ public class OrderToGoodsEntity implements EntityInterface  {
     private long id;
     private OrdersEntity ordersByOrderId;
     private GoodsEntity goodsByGoodsId;
+    private long quantity;
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -57,8 +59,20 @@ public class OrderToGoodsEntity implements EntityInterface  {
         this.goodsByGoodsId = goodsByGoodsId;
     }
 
+
+
+    @Basic
+    @Column(name = "quantity", nullable = false)
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
     @Override
     public String toHtmlTableRow(){
-        return "<tr><td>" + this.id + "</td><td>" + this.ordersByOrderId.getId() + "</td><td>" + this.goodsByGoodsId.getId() + "</td></tr>";
+        return "<tr><td>" + this.id + "</td><td>" + this.ordersByOrderId.getClientsByClientId().getFio() + "</td><td>" + this.goodsByGoodsId.getManufacturer()+ " " + this.goodsByGoodsId.getModel() + "</td><td>" + this.quantity + "</td><td>"
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
     }
 }

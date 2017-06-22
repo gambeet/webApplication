@@ -3,14 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    
+    <servlet-mapping>
+        <servlet-name>ChooseTableServlet</servlet-name>
+        <url-pattern>/ChooseTableServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddElementServlet</servlet-name>
+        <url-pattern>/AddElementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteElementServlet</servlet-name>
+        <url-pattern>/DeleteElementServlet</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>ChooseTableServlet</servlet-name>
         <servlet-class>servlets.chooseTableServlet</servlet-class>
     </servlet>
-
-<servlet-mapping>
-    <servlet-name>ChooseTableServlet</servlet-name>
-    <url-pattern>/ChooseTableServlet</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>AddElementServlet</servlet-name>
+        <servlet-class>servlets.addElementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteElementServlet</servlet-name>
+        <servlet-class>servlets.deleteElementServlet</servlet-class>
+    </servlet>
+    
+    
+    
 </web-app>

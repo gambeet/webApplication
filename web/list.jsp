@@ -1,18 +1,9 @@
-<%@ page import="org.hibernate.SessionFactory" %>
-<%@ page import="org.hibernate.boot.registry.StandardServiceRegistry" %>
-<%@ page import="org.hibernate.boot.registry.StandardServiceRegistryBuilder" %>
-<%@ page import="org.hibernate.boot.MetadataSources" %>
+<%@ page import="model.EntityInterface" %>
 <%@ page import="org.hibernate.Session" %>
-<%@ page import="org.hibernate.cfg.Configuration" %>
-<%@ page import="java.util.Properties" %>
-<%@ page import="org.hibernate.service.ServiceRegistry" %>
-<%@ page import="java.util.List" %>
-<%@ page import="model.ClientsEntity" %>
-<%@ page import="org.hibernate.Transaction" %>
-<%@ page import="org.hibernate.HibernateException" %>
-<%@ page import="utils.HibernateSessionFactory" %>
 <%@ page import="org.hibernate.query.Query" %>
-<%@ page import="model.EntityInterface" %><%--
+<%@ page import="utils.HibernateSessionFactory" %>
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: Yevhenii
   Date: 19.06.2017
@@ -40,42 +31,46 @@
 
 <%
     String currentTable = null;
-    if(session.getAttribute("currentTable") != null){
+    if (session.getAttribute("currentTable") != null) {
         currentTable = (String) session.getAttribute("currentTable");
-    }
 %>
 <p>
     Current table: <%=currentTable %>
 </p>
-
+<%
+    }
+%>
 <div>
     <%
 
         List<EntityInterface> rows = null;
-        Session session1 = HibernateSessionFactory.getSessionFactory().openSession();
+        Session hibernateSession = HibernateSessionFactory.getSessionFactory().openSession();
         Query query = null;
-        switch (currentTable){
+        query = hibernateSession.createNamedQuery(currentTable + ".findAll");
+        /*switch (currentTable){
             case "Clients":
-                query = session1.createNamedQuery("Clients.findAll");
+                query = hibernateSession.createNamedQuery("Clients.findAll");
                 break;
             case "Orders":
-                query = session1.createNamedQuery("Orders.findAll");
+                query = hibernateSession.createNamedQuery("Orders.findAll");
                 break;
             case "Goods":
-                query = session1.createNamedQuery("Goods.findAll");
+                query = hibernateSession.createNamedQuery("Goods.findAll");
                 break;
             case "OrderToGoods":
-                query = session1.createNamedQuery("OrderToGoods.findAll");
+                query = hibernateSession.createNamedQuery("OrderToGoods.findAll");
                 break;
-        }
+        }*/
         rows = query.list();
+        //HibernateSessionFactory.shutdown();
     %>
     <table>
         <%for (EntityInterface row : rows) {%>
-            <%=row.toHtmlTableRow()%>
+        <%=row.toHtmlTableRow()%>
         <%}%>
     </table>
 </div>
 <a href="list.jsp">List</a>
+<a href="add.jsp">Add</a>
 </body>
 </html>

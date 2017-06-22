@@ -4,7 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Clients", schema = "dbo", catalog = "shop")
-@NamedQuery(name = "Clients.findAll", query = "select r from ClientsEntity r")
+
+@NamedQueries({
+        @NamedQuery(name = "Clients.findAll", query = "select r from ClientsEntity r"),
+        @NamedQuery(name = "Clients.deleteElement", query = "DELETE FROM ClientsEntity r WHERE r.id = :id")
+})
 public class ClientsEntity implements EntityInterface {
     private long id;
     private String fio;
@@ -13,6 +17,7 @@ public class ClientsEntity implements EntityInterface {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -76,7 +81,8 @@ public class ClientsEntity implements EntityInterface {
     }
 
     @Override
-    public String toHtmlTableRow(){
-        return "<tr><td>" + this.id + "</td><td>" + this.fio + "</td><td>" + this.address + "</td><td>" + this.phone + "</td></tr>";
+    public String toHtmlTableRow() {
+        return "<tr><td>" + this.id + "</td><td>" + this.fio + "</td><td>" + this.address + "</td><td>" + this.phone + "</td><td>"
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
     }
 }
