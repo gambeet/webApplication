@@ -4,7 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "OrderToGoods", schema = "dbo", catalog = "shop")
-@NamedQuery(name = "OrderToGoods.findAll", query = "select r from OrderToGoodsEntity r")
+
+@NamedQueries({
+        @NamedQuery(name = "OrderToGoods.findAll", query = "select r from OrderToGoodsEntity r"),
+        @NamedQuery(name = "OrderToGoods.deleteElement", query = "DELETE FROM OrderToGoodsEntity r WHERE r.id = :id")
+})
 public class OrderToGoodsEntity implements EntityInterface  {
     private long id;
     private OrdersEntity ordersByOrderId;
@@ -73,6 +77,7 @@ public class OrderToGoodsEntity implements EntityInterface  {
     @Override
     public String toHtmlTableRow(){
         return "<tr><td>" + this.id + "</td><td>" + this.ordersByOrderId.getClientsByClientId().getFio() + "</td><td>" + this.goodsByGoodsId.getManufacturer()+ " " + this.goodsByGoodsId.getModel() + "</td><td>" + this.quantity + "</td><td>"
-                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td><td>" +
+                "<a href=\"/edit.jsp?id=" + this.id+ "&goodsId=" + this.goodsByGoodsId.getId() + "&orderId=" + this.ordersByOrderId.getId() + "&quantity=" + this.quantity + "\">Edit</a>" + "</td></tr>";
     }
 }

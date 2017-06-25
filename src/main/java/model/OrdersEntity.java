@@ -5,8 +5,12 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Orders", schema = "dbo", catalog = "shop")
-@NamedQuery(name = "Orders.findAll", query = "select r from OrdersEntity r")
-public class OrdersEntity implements EntityInterface  {
+
+@NamedQueries({
+        @NamedQuery(name = "Orders.findAll", query = "select r from OrdersEntity r"),
+        @NamedQuery(name = "Orders.deleteElement", query = "DELETE FROM OrdersEntity r WHERE r.id = :id")
+})
+public class OrdersEntity implements EntityInterface {
     private long id;
     private Date date;
     private boolean isPaid;
@@ -76,13 +80,18 @@ public class OrdersEntity implements EntityInterface  {
     }
 
     @Override
-    public String toHtmlTableRow(){
+    public String toHtmlTableRow() {
         String isPaidStr = null;
-        if(isPaid)
+        String isPaidGet = null;
+        if (isPaid) {
             isPaidStr = "paid";
-        else
+            isPaidGet = "checked";
+        } else {
             isPaidStr = "not paid";
+            isPaidGet = "";
+        }
         return "<tr><td>" + this.id + "</td><td>" + this.date + "</td><td>" + isPaidStr + "</td><td>" + this.clientsByClientId.getFio() + "</td><td>"
-                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td><td>" +
+                "<a href=\"/edit.jsp?id=" + this.id + "&isPaid=" + isPaidGet + "&date=" + this.date.toString() + "&clientId=" + this.clientsByClientId.getId() + "\">Edit</a>" + "</td></tr>";
     }
 }

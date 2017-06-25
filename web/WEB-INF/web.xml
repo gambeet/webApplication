@@ -16,19 +16,26 @@
         <servlet-name>DeleteElementServlet</servlet-name>
         <url-pattern>/DeleteElementServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditElementServlet</servlet-name>
+        <url-pattern>/EditElementServlet</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>ChooseTableServlet</servlet-name>
-        <servlet-class>servlets.chooseTableServlet</servlet-class>
+        <servlet-class>servlets.ChooseTableServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddElementServlet</servlet-name>
-        <servlet-class>servlets.addElementServlet</servlet-class>
+        <servlet-class>servlets.AddElementServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteElementServlet</servlet-name>
-        <servlet-class>servlets.deleteElementServlet</servlet-class>
-    </servlet>
+        <servlet-class>servlets.DeleteElementServlet</servlet-class>
+    </servlet> <servlet>
+    <servlet-name>EditElementServlet</servlet-name>
+    <servlet-class>servlets.EditElementServlet</servlet-class>
+</servlet>
     
     
     

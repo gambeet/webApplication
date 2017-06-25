@@ -4,7 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Goods", schema = "dbo", catalog = "shop")
-@NamedQuery(name = "Goods.findAll", query = "select r from GoodsEntity r")
+@NamedQueries({
+        @NamedQuery(name = "Goods.findAll", query = "select r from GoodsEntity r"),
+        @NamedQuery(name = "Goods.deleteElement", query = "DELETE FROM GoodsEntity r WHERE r.id = :id")
+})
 public class GoodsEntity implements EntityInterface {
     private long id;
     private String manufacturer;
@@ -95,6 +98,7 @@ public class GoodsEntity implements EntityInterface {
     @Override
     public String toHtmlTableRow() {
         return "<tr><td>" + this.id + "</td><td>" + this.manufacturer + "</td><td>" + this.model + "</td><td>" + this.price + "</td><td>" + this.description + "</td><td>"
-                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td><td>" +
+                "<a href=\"/edit.jsp?id=" + this.id+ "&manufacturer=" + this.manufacturer + "&model=" + this.model + "&price=" + this.price + "&description=" + this.description.replace("+", "%2B") + "\">Edit</a>" + "</td></tr>";
     }
 }

@@ -17,9 +17,11 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 <script src="http://cdn-na.infragistics.com/igniteui/latest/js/infragistics.core.js"></script>
 <script src="http://cdn-na.infragistics.com/igniteui/latest/js/infragistics.lob.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 <script>
     $( function() {
-        $( "#datepicker" ).datepicker();
+        $( ".datepicker" ).datepicker({ format: 'yyyy-mm-dd' });
     } );
 </script>
 <link rel="stylesheet" href="http://htmlbook.ru/mysite.css">

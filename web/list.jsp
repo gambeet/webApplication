@@ -3,6 +3,7 @@
 <%@ page import="org.hibernate.query.Query" %>
 <%@ page import="utils.HibernateSessionFactory" %>
 <%@ page import="java.util.List" %>
+<%@ page import="utils.HibernateController" %>
 <%--
   Created by IntelliJ IDEA.
   User: Yevhenii
@@ -43,26 +44,7 @@
 <div>
     <%
 
-        List<EntityInterface> rows = null;
-        Session hibernateSession = HibernateSessionFactory.getSessionFactory().openSession();
-        Query query = null;
-        query = hibernateSession.createNamedQuery(currentTable + ".findAll");
-        /*switch (currentTable){
-            case "Clients":
-                query = hibernateSession.createNamedQuery("Clients.findAll");
-                break;
-            case "Orders":
-                query = hibernateSession.createNamedQuery("Orders.findAll");
-                break;
-            case "Goods":
-                query = hibernateSession.createNamedQuery("Goods.findAll");
-                break;
-            case "OrderToGoods":
-                query = hibernateSession.createNamedQuery("OrderToGoods.findAll");
-                break;
-        }*/
-        rows = query.list();
-        //HibernateSessionFactory.shutdown();
+        List<EntityInterface> rows = HibernateController.read(currentTable);
     %>
     <table>
         <%for (EntityInterface row : rows) {%>

@@ -12,10 +12,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div>
-    <form action="AddElementServlet" method="POST">
+    <form action="EditElementServlet" method="POST">
+        <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
         <p>
             Choose client
-            <select name="clientId" style="width: 200px;">
+            <select name="clientId" style="width: 200px;" value="<%=request.getParameter("clientId")%>">
                 <%
                     List<ClientsEntity> rows = null;
                     Session hibernateSession = HibernateSessionFactory.getSessionFactory().openSession();
@@ -29,10 +30,10 @@
             </select>
         </p>
         <p>
-            Is order paid already? <input type="checkbox" name="isPaid">
+            Is order paid already? <input type="checkbox" name="isPaid" <%=request.getParameter("isPaid")%>>
         </p>
         <p>
-            Choose order's date <input type="text" name="date" id="datepicker" readonly required>
+            Choose order's date <input type="text" name="date" id="datepicker" value="<%=request.getParameter("date")%>"  required>
         </p>
         <input type="submit" name="add" value="Add">
     </form>

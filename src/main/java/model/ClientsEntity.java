@@ -83,6 +83,8 @@ public class ClientsEntity implements EntityInterface {
     @Override
     public String toHtmlTableRow() {
         return "<tr><td>" + this.id + "</td><td>" + this.fio + "</td><td>" + this.address + "</td><td>" + this.phone + "</td><td>"
-                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a></td></tr>";
+                + "<a href=\"/DeleteElementServlet?id=" + this.id + "\">Delete</a>" + "</td><td>"
+                + "<a href=\"/edit.jsp?id=" + this.id+ "&fio=" + this.fio + "&address=" + this.address + "&phone=" + this.phone.replace("+", "%2B") + "\">Edit</a>" + "</td></tr>";
     }
+
 }
