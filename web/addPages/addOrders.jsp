@@ -11,29 +11,32 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div>
+<div class="form-group">
     <form action="AddElementServlet" method="POST">
         <p>
-            Choose client
-            <select name="clientId" style="width: 200px;">
+            <label>Choose client:</label>
+            <select name="clientId" class="form-control" style="width: 400px;">
                 <%
                     List<ClientsEntity> rows = null;
                     Session hibernateSession = HibernateSessionFactory.getSessionFactory().openSession();
                     Query query = hibernateSession.createNamedQuery("Clients.findAll");
-                    rows = (List<ClientsEntity>)query.list();
+                    rows = (List<ClientsEntity>) query.list();
                     for (ClientsEntity row : rows) {%>
                 <option value="<%=row.getId()%>" style="width: auto;">
-                    <%=row.getFio()+ " | " + row.getAddress()%>
+                    <%=row.getFio() + " | " + row.getAddress()%>
                 </option>
                 <%}%>
             </select>
         </p>
         <p>
-            Is order paid already? <input type="checkbox" name="isPaid">
+            <label>Is order paid already?</label>
+            <input type="checkbox" class="checkbox-inline" name="isPaid">
         </p>
         <p>
-            Choose order's date <input type="text" name="date" id="datepicker" readonly required>
+            <label>Choose order's date:</label>
+            <br>
+            <input type="text" class="datepicker" name="date" readonly required style="width: 400px;">
         </p>
-        <input type="submit" name="add" value="Add">
+        <input type="submit" class="btn btn-primary" name="add" value="Add">
     </form>
 </div>

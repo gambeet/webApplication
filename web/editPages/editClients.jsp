@@ -11,16 +11,14 @@
     <form action="EditElementServlet" method="post">
         <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
         <p>
-            Enter client's full name <input type="text" name="fio" value="<%=request.getParameter("fio")%>" required>
+            <label>Enter client's full name:</label> <input type="text" class="form-control" required style="width: 400px;" name="fio" value="<%=request.getParameter("fio")%>" required>
         </p>
         <p>
-            Enter client's address <input type="text" name="address" value="<%=request.getParameter("address")%>" required>
+            <label>Enter client's address:</label> <input type="text"  class="form-control" required style="width: 400px;" name="address" value="<%=request.getParameter("address")%>" required>
         </p>
-        <%
-            System.out.println(request.getParameter("phone"));%>
         <p>
-            Enter client's phone number <input type="text" name="phone" value="<%=request.getParameter("phone")%>">
+            <label>Enter client's phone number:</label> <input type="text"  class="form-control" required style="width: 400px;" name="phone" value="<%=request.getParameter("phone")%>">
         </p>
-        <input type="submit" name="add" value ="Edit">
+        <input type="submit" name="add" class="btn btn-primary" value ="Edit">
     </form>
 </div>
