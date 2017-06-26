@@ -36,7 +36,5 @@
     <servlet-name>EditElementServlet</servlet-name>
     <servlet-class>servlets.EditElementServlet</servlet-class>
 </servlet>
-    
-    
-    
+
 </web-app>
