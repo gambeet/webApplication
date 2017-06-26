@@ -1,51 +1,84 @@
-ul {
-    display: block;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+body { 
+    margin: 0; /* Убираем отступы */
+    height: 100%;
+   }
+
+#header{
+	top: 0;
+	left: 0;
+	padding: 10px;
+	font-size: 25px;
+	right: 0;
+	background-color: #498fff;
+	text-decoration: none;
+	font-weight: bold;
+	position: relative;
 }
-ul:after {
-    display: block;
-    content: ' ';
-    clear: both;
-    float: none;
+
+
+#current{
+	margin-top: 0px;
+	padding: 5px;
+	padding-left: 0px;
+	font-size: 16px;
+	font-weight: bold;
+	display: inline-block;
 }
-ul.menu > li {
-    float: left;
-    position: relative;
+
+#rightCol{
+	background-color: lightblue;
+	float: right;
+	height: 100%;
+	font-size: 20px;
+	
 }
-ul.menu > li > a {
-    display: block;
-    padding: 10px;
-    color: white;
-    background-color: red;
-    text-decoration: none;
+
+
+#iframe{
+	margin-left: 10%;
+	border: #000000 1px solid;
+	
 }
-ul.menu > li > a:hover {
-    background-color: black;
+#menu {
+	padding: 0;
+	margin-top: 0px;
+	margin-left: 0px;
+	list-style-type: none;
+	width: 10%;
+	height: 100%;
+	position: fixed;
+	overflow: auto;
+	background-color: #888;
 }
-ul.submenu {
+
+#menu li{
+	border: 1px solid #666;
+}
+
+#menu a{
+	background-color: #f3f3f3;
+	color: black;
+	padding: 5px;
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+}
+
+#menu a:hover{
+	background-color: #498fff;
+}
+
+
+#choose{
+	padding: 0;
+}
+
+#precident {
+	padding: 0;
     display: none;
-    position: absolute;
-    width: 120px;
-    top: 37px;
-    left: 0;
-    background-color: white;
-    border: 1px solid red;
+    left: 0;  
 }
-ul.submenu > li {
-    display: block;
-}
-ul.submenu > li > a {
-    display: block;
-    padding: 10px;
-    color: white;
-    background-color: red;
-    text-decoration: none;
-}
-ul.submenu > li > a:hover {
-    text-decoration: underline;
-}
-ul.menu > li:hover > ul.submenu {
+
+#choose > li:hover > #precident {
     display: block;
 }
