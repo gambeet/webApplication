@@ -25,20 +25,12 @@ body {
 	display: inline-block;
 }
 
-#rightCol{
-	background-color: lightblue;
-	float: right;
-	height: 100%;
-	font-size: 20px;
-	
+#list{
+	margin-left: 11%;
+	margin-top: 1%;
 }
 
 
-#iframe{
-	margin-left: 10%;
-	border: #000000 1px solid;
-	
-}
 #menu {
 	padding: 0;
 	margin-top: 0px;
@@ -68,6 +60,20 @@ body {
 	background-color: #498fff;
 }
 
+
+#listTable a{
+	border: 2px solid #666;
+	background-color: #f3f3f3;
+	color: black;
+	padding: 5px;
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+}
+
+#listTable a:hover{
+	background-color: #498fff;
+}
 
 #choose{
 	padding: 0;
