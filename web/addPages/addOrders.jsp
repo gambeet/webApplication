@@ -34,7 +34,8 @@
         </p>
         <p>
             <label>Choose order's date:</label>
-            <input type="text" class="datepicker" name="date" readonly required>
+            <br>
+            <input type="text" class="datepicker" name="date" readonly required style="width: 400px;">
         </p>
         <input type="submit" class="btn btn-primary" name="add" value="Add">
     </form>

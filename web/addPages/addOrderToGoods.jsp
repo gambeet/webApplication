@@ -17,8 +17,8 @@
         Session hibernateSession = HibernateSessionFactory.getSessionFactory().openSession();%>
     <form action="AddElementServlet" method="POST">
         <p>
-            Choose order
-            <select name="orderId" style="width: 200px;">
+            <label>Choose order:</label>
+            <select name="orderId" class="form-control"  style="width: 400px;">
                 <%
                     List<OrdersEntity> orders = null;
                     Query queryOrders = hibernateSession.createNamedQuery("Orders.findAll");
@@ -31,8 +31,8 @@
             </select>
         </p>
         <p>
-            Choose goods
-            <select name="goodsId" style="width: 200px;">
+            <label>Choose goods:</label>
+            <select name="goodsId" class="form-control"  style="width: 400px;">
                 <%
                     List<GoodsEntity> goods = null;
                     Query queryGoods = hibernateSession.createNamedQuery("Goods.findAll");
@@ -45,8 +45,8 @@
             </select>
         </p>
         <p>
-            Enter number of goods <input type="number" name="quantity" min="1" value="1">
+            <label>Enter number of goods:</label> <input type="number" name="quantity" class="form-control" style="width: 400px;" min="1" value="1">
         </p>
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="add" class="btn btn-primary" value="Add">
     </form>
 </div>
