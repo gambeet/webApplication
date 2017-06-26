@@ -60,6 +60,10 @@ body {
 	background-color: #498fff;
 }
 
+#add{
+    margin-top: 1%;
+    margin-left: 11%;
+}
 
 #listTable a{
 	border: 2px solid #666;
