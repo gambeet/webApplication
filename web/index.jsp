@@ -18,7 +18,7 @@
     <div id="current">
         <%
             String currentTable = null;
-            if (session.getAttribute("currentTable") == null) {
+            if (session.getAttribute("currentTable") != null) {
                 currentTable = (String) session.getAttribute("currentTable");
 
         %>
@@ -29,7 +29,7 @@
 <div id="menue">
     <ul id="menu">
         <%
-            if (session.getAttribute("currentTable") == null) {
+            if (session.getAttribute("currentTable") != null) {
         %>
         <li><a href=="list.jsp">List</a></li>
         <li><a href="add.jsp">Add</a></li>
