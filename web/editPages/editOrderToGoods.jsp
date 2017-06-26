@@ -18,8 +18,8 @@
     <form action="EditElementServlet" method="POST">
         <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
         <p>
-            Choose order
-            <select name="orderId" style="width: 200px;" value="<%=request.getParameter("orderId")%>">
+            <label>Choose order:</label>
+            <select name="orderId"  class="form-control"  style="width: 400px;" value="<%=request.getParameter("orderId")%>">
                 <%
                     List<OrdersEntity> orders = null;
                     Query queryOrders = hibernateSession.createNamedQuery("Orders.findAll");
@@ -32,8 +32,8 @@
             </select>
         </p>
         <p>
-            Choose goods
-            <select name="goodsId" style="width: 200px;" value="<%=request.getParameter("goodsId")%>">
+            <label>Choose goods:</label>
+            <select name="goodsId"  class="form-control"  style="width: 400px;" value="<%=request.getParameter("goodsId")%>">
                 <%
                     List<GoodsEntity> goods = null;
                     Query queryGoods = hibernateSession.createNamedQuery("Goods.findAll");
@@ -46,8 +46,8 @@
             </select>
         </p>
         <p>
-            Enter number of goods <input type="number" name="quantity" min="1" value="1" value="<%=request.getParameter("quantity")%>">
+            <label>Enter number of goods:</label> <input type="number"  class="form-control" style="width: 400px;" name="quantity" min="1" value="1" value="<%=request.getParameter("quantity")%>">
         </p>
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="add" class="btn btn-primary" value="Edit">
     </form>
 </div>
