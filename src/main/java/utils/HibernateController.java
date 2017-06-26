@@ -32,26 +32,7 @@ public class HibernateController {
         hibernateSession.getTransaction().begin();
         if(element == null)
             return;
-        EntityInterface editableElement = findElementById(element.getId(), tableName);
-        if(element instanceof ClientsEntity){
-            ((ClientsEntity)editableElement).setFio(((ClientsEntity)element).getFio());
-            ((ClientsEntity)editableElement).setAddress(((ClientsEntity)element).getAddress());
-            ((ClientsEntity)editableElement).setPhone(((ClientsEntity)element).getPhone());
-        }else if(element instanceof GoodsEntity){
-            ((GoodsEntity)editableElement).setManufacturer(((GoodsEntity)element).getManufacturer());
-            ((GoodsEntity)editableElement).setModel(((GoodsEntity)element).getModel());
-            ((GoodsEntity)editableElement).setPrice(((GoodsEntity)element).getPrice());
-            ((GoodsEntity)editableElement).setDescription(((GoodsEntity)element).getDescription());
-        }else if(element instanceof OrdersEntity){
-            System.out.println(((OrdersEntity)element).toHtmlTableRow());
-            ((OrdersEntity)editableElement).setDate(((OrdersEntity)element).getDate());
-            ((OrdersEntity)editableElement).setPaid(((OrdersEntity)element).isPaid());
-            ((OrdersEntity)editableElement).setClientsByClientId(((OrdersEntity)element).getClientsByClientId());
-        }else if(element instanceof OrderToGoodsEntity){
-            ((OrderToGoodsEntity)editableElement).setQuantity(((OrderToGoodsEntity)element).getQuantity());
-            ((OrderToGoodsEntity)editableElement).setOrdersByOrderId(((OrderToGoodsEntity)element).getOrdersByOrderId());
-            ((OrderToGoodsEntity)editableElement).setGoodsByGoodsId(((OrderToGoodsEntity)element).getGoodsByGoodsId());
-        }
+        hibernateSession.merge(element);
         hibernateSession.getTransaction().commit();
     }
 
