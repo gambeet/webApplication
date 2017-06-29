@@ -12,11 +12,11 @@ public class OrderToGoodsTest {
     @Test
     public void testWorkWithOrderToGoodsTable(){
         OrderToGoodsEntity oge = new OrderToGoodsEntity();
+        Assert.assertNotEquals("Goods table is empty", HibernateController.read("Goods").size(), 0);
         GoodsEntity goods = (GoodsEntity) HibernateController.read("Goods").get(0);
-        Assert.assertNotNull("Goods table is empty", goods);
         oge.setGoodsByGoodsId(goods);
+        Assert.assertNotEquals("Orders table is empty", HibernateController.read("Orders").size(), 0);
         OrdersEntity order = (OrdersEntity) HibernateController.read("Orders").get(0);
-        Assert.assertNotNull("Orders table is empty", order);
         oge.setOrdersByOrderId(order);
         oge.setQuantity(15);
         HibernateController.create(oge);

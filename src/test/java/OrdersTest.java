@@ -16,8 +16,8 @@ public class OrdersTest {
         Date date = new Date(System.currentTimeMillis());
         oe.setDate(date);
         oe.setPaid(true);
+        Assert.assertNotEquals("Clients table is empty",HibernateController.read("Clients").size(), 0);
         ClientsEntity client = (ClientsEntity) HibernateController.read("Clients").get(0);
-        Assert.assertNotNull("Clients table is empty", client);
         oe.setClientsByClientId(client);
         HibernateController.create(oe);
 
