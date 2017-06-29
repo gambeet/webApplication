@@ -34,6 +34,9 @@ public class OrderToGoodsEntity implements EntityInterface  {
         OrderToGoodsEntity that = (OrderToGoodsEntity) o;
 
         if (id != that.id) return false;
+        else if(quantity != that.quantity) return false;
+        else if(ordersByOrderId.getId() != that.ordersByOrderId.getId()) return false;
+        else if(goodsByGoodsId.getId() != that.ordersByOrderId.getId()) return false;
 
         return true;
     }

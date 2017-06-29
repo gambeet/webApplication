@@ -1,54 +1,37 @@
 import model.ClientsEntity;
-import model.EntityInterface;
+import org.junit.Assert;
 import org.junit.Test;
 import utils.HibernateController;
-
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ness5 on 27.06.2017.
  */
 public class ClientsTest {
     @Test
-    public void myTest(){
-        boolean testCreateRead = false;
-        boolean testDelete = false;
-        boolean testUpdate = false;
+    public void testWorkWithClientsTable(){
         ClientsEntity ce = new ClientsEntity();
-
         ce.setFio("ExampleName");
         ce.setAddress("ExampleAddress");
         ce.setPhone("+388005553535");
+        HibernateController.create(ce);
 
-        HibernateController controller = new HibernateController();
+        ClientsEntity ceI = (ClientsEntity) HibernateController.findElementById(ce.getId(), "Clients");
+        Assert.assertNotNull("Failed add to Clients table", ceI);
 
-        controller.create(ce);
-
-        List<EntityInterface> rows = controller.read("Clients");
-        if(rows.contains(ce)){
-            testCreateRead = true;
-        }
-
+        ce = new ClientsEntity();
+        ce.setId(ceI.getId());
+        ce.setAddress("ExampleAddress");
+        ce.setPhone("+388005553535");
         ce.setFio("nameName");
-        controller.update(ce, "Clients");
-        rows = controller.read("Clients");
+        HibernateController.update(ce, "Clients");
 
-        if(rows.contains(ce)){
-           testUpdate = true;
-        }
+        ClientsEntity ceU = (ClientsEntity) HibernateController.findElementById(ce.getId(), "Clients");
+        Assert.assertEquals("Failed update element from Clients table",ceI, ceU);
 
-        controller.delete("Clients", rows.get(rows.indexOf(ce)).getId());
+        HibernateController.delete("Clients", ce.getId());
 
-        rows = controller.read("Clients");
+        ClientsEntity ceD = (ClientsEntity) HibernateController.findElementById(ce.getId(), "Clients");
+        Assert.assertNull("Failed detele from Clients table", ceD);
 
-        if(!rows.contains(ce)) {
-            testDelete = true;
-        }
-
-        assertTrue(testCreateRead);
-        assertTrue(testDelete);
-        assertTrue(testUpdate);
     }
 }

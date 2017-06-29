@@ -1,56 +1,44 @@
-import model.EntityInterface;
 import model.GoodsEntity;
 import model.OrderToGoodsEntity;
 import model.OrdersEntity;
+import org.junit.Assert;
 import org.junit.Test;
 import utils.HibernateController;
-
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ness5 on 29.06.2017.
  */
 public class OrderToGoodsTest {
     @Test
-    public void myTest(){
-        boolean testCreateRead = false;
-        boolean testDelete = false;
-        boolean testUpdate = false;
+    public void testWorkWithOrderToGoodsTable(){
         OrderToGoodsEntity oge = new OrderToGoodsEntity();
-
-        HibernateController controller = new HibernateController();
-
-        oge.setGoodsByGoodsId((GoodsEntity) controller.findElementById(0, "Goods"));
-        oge.setOrdersByOrderId((OrdersEntity) controller.findElementById(4, "Orders"));
+        GoodsEntity goods = (GoodsEntity) HibernateController.read("Goods").get(0);
+        Assert.assertNotNull("Goods table is empty", goods);
+        oge.setGoodsByGoodsId(goods);
+        OrdersEntity order = (OrdersEntity) HibernateController.read("Orders").get(0);
+        Assert.assertNotNull("Orders table is empty", order);
+        oge.setOrdersByOrderId(order);
         oge.setQuantity(15);
+        HibernateController.create(oge);
 
-        controller.create(oge);
+        OrderToGoodsEntity ogeI = (OrderToGoodsEntity) HibernateController.findElementById(oge.getId(), "OrderToGoods");
+        Assert.assertNotNull("Failed add to OrderToGoods table", ogeI);
 
-        List<EntityInterface> rows = controller.read("OrderToGoods");
-        if(rows.contains(oge)){
-            testCreateRead = true;
-        }
-
+        oge = new OrderToGoodsEntity();
+        oge.setId(ogeI.getId());
+        oge.setGoodsByGoodsId(goods);
+        oge.setOrdersByOrderId(order);
         oge.setQuantity(25);
-        controller.update(oge, "OrderToGoods");
-        rows = controller.read("OrderToGoods");
+        HibernateController.update(oge, "OrderToGoods");
 
-        if(rows.contains(oge)){
-            testUpdate = true;
-        }
+        OrderToGoodsEntity ogeU = (OrderToGoodsEntity) HibernateController.findElementById(oge.getId(), "OrderToGoods");
+        Assert.assertEquals("Failed update element from OrderToGoods table", ogeU, ogeI);
 
-        controller.delete("OrderToGoods", rows.get(rows.indexOf(oge)).getId());
+        HibernateController.delete("OrderToGoods", oge.getId());
 
-        rows = controller.read("OrderToGoods");
+        OrderToGoodsEntity ogeD = (OrderToGoodsEntity) HibernateController.findElementById(oge.getId(), "OrderToGoods");
 
-        if(!rows.contains(oge)) {
-            testDelete = true;
-        }
+        Assert.assertNull("Failed detele from OrderToGoods table", ogeD);
 
-        assertTrue(testCreateRead);
-        assertTrue(testDelete);
-        assertTrue(testUpdate);
     }
 }

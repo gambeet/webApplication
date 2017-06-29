@@ -1,55 +1,39 @@
-import model.EntityInterface;
 import model.GoodsEntity;
+import org.junit.Assert;
 import org.junit.Test;
 import utils.HibernateController;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by ness5 on 29.06.2017.
  */
 public class GoodsTest {
     @Test
-    public void myTest(){
-        boolean testCreateRead = false;
-        boolean testDelete = false;
-        boolean testUpdate = false;
+    public void testWorkWithGoodsTable(){
         GoodsEntity ge = new GoodsEntity();
-
         ge.setManufacturer("Sony");
         ge.setModel("AMX-30");
         ge.setPrice(11.55);
         ge.setDescription("simpleDescription");
+        HibernateController.create(ge);
 
-        HibernateController controller = new HibernateController();
+        GoodsEntity geI = (GoodsEntity)HibernateController.findElementById(ge.getId(), "Goods");
+        Assert.assertNotNull("Failed add to Goods table", geI);
 
-        controller.create(ge);
-
-        List<EntityInterface> rows = controller.read("Goods");
-        if(rows.contains(ge)){
-            testCreateRead = true;
-        }
-
+        ge = new GoodsEntity();
+        ge.setId(geI.getId());
+        ge.setManufacturer("Sony");
+        ge.setPrice(11.55);
+        ge.setDescription("simpleDescription");
         ge.setModel("XRN2");
-        controller.update(ge, "Goods");
-        rows = controller.read("Goods");
+        HibernateController.update(ge, "Goods");
 
-        if(rows.contains(ge)){
-            testUpdate = true;
-        }
+        GoodsEntity geU = (GoodsEntity)HibernateController.findElementById(ge.getId(), "Goods");
+        Assert.assertEquals("Failed update element from Goods table", geI, geU);
 
-        controller.delete("Goods", rows.get(rows.indexOf(ge)).getId());
+        HibernateController.delete("Goods", ge.getId());
 
-        rows = controller.read("Goods");
+        GoodsEntity geD = (GoodsEntity) HibernateController.findElementById(ge.getId(), "Goods");
+        Assert.assertNull("Failed detele from Clients table", geD);
 
-        if(!rows.contains(ge)) {
-            testDelete = true;
-        }
-
-        assertTrue(testCreateRead);
-        assertTrue(testDelete);
-        assertTrue(testUpdate);
     }
 }

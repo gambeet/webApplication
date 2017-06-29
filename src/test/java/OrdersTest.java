@@ -1,57 +1,42 @@
 import model.ClientsEntity;
-import model.EntityInterface;
 import model.OrdersEntity;
+import org.junit.Assert;
 import org.junit.Test;
 import utils.HibernateController;
 
 import java.sql.Date;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ness5 on 29.06.2017.
  */
 public class OrdersTest {
     @Test
-    public void myTest(){
-        boolean testCreateRead = false;
-        boolean testDelete = false;
-        boolean testUpdate = false;
+    public void testWorkWithOrdersTable(){
         OrdersEntity oe = new OrdersEntity();
         Date date = new Date(System.currentTimeMillis());
-        HibernateController controller = new HibernateController();
-
         oe.setDate(date);
         oe.setPaid(true);
-        oe.setClientsByClientId((ClientsEntity) controller.findElementById(0, "Clients"));
+        ClientsEntity client = (ClientsEntity) HibernateController.read("Clients").get(0);
+        Assert.assertNotNull("Clients table is empty", client);
+        oe.setClientsByClientId(client);
+        HibernateController.create(oe);
 
+        OrdersEntity oeI = (OrdersEntity) HibernateController.findElementById(oe.getId(), "Orders");
+        Assert.assertNotNull("Failed add to Orders table", oeI);
 
-        controller.create(oe);
-
-        List<EntityInterface> rows = controller.read("Orders");
-        if(rows.contains(oe)){
-            testCreateRead = true;
-        }
-
+        oe = new OrdersEntity();
+        oe.setId(oeI.getId());
+        oe.setDate(date);
         oe.setPaid(false);
-        controller.update(oe, "Orders");
-        rows = controller.read("Orders");
+        oe.setClientsByClientId(client);
+        HibernateController.update(oe, "Orders");
 
-        if(rows.contains(oe)){
-            testUpdate = true;
-        }
+        OrdersEntity oeU = (OrdersEntity) HibernateController.findElementById(oe.getId(), "Orders");
+        Assert.assertEquals("Failed update element from Orders table", oe, oeU);
 
-        controller.delete("Orders", rows.get(rows.indexOf(oe)).getId());
+        HibernateController.delete("Orders", oe.getId());
 
-        rows = controller.read("Goods");
-
-        if(!rows.contains(oe)) {
-            testDelete = true;
-        }
-
-        assertTrue(testCreateRead);
-        assertTrue(testDelete);
-        assertTrue(testUpdate);
+        OrdersEntity oeD = (OrdersEntity) HibernateController.findElementById(oe.getId(), "Orders");
+        Assert.assertNull("Failed detele from Orders table", oeD);
     }
 }
